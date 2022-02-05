@@ -4,7 +4,7 @@ import UIKit
 
 class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     
-    var movies : [String] = ["movie1", "movie2", "movie3", "movie4"]
+    var movieResult : [MoviesDetails] = []
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
@@ -22,35 +22,85 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return movies.count
+        if (movieResult.count != 0) {
+            return movieResult.count
+        } else {
+            movieResult = []
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
         
-        cell.textLabel?.text = movies[indexPath.row]
+        cell.textLabel?.text = movieResult[indexPath.row].originalTitle
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Detail Screen Action
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "detailscreen") as? DetailViewController
-        vc?.id = indexPath.row
-        vc?.originalTitle = movies[indexPath.row]
-        vc?.overview = movies[indexPath.row]
-        vc?.backdropPath = movies[indexPath.row]
-        vc?.poster_path = movies[indexPath.row]
-        vc?.release_date = movies[indexPath.row]
-        vc?.vote_average = 0.0
-        self.navigationController?.pushViewController(vc!, animated: true)
+        if movieResult.count != 0 {
+            let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "detailscreen") as? DetailViewController
+            vc?.id = movieResult[indexPath.row].id
+            vc?.originalTitle = movieResult[indexPath.row].originalTitle
+            vc?.overview = movieResult[indexPath.row].overview.replacingOccurrences(of: "'", with: "''")
+            if movieResult[indexPath.row].backdropPath?.count == nil {
+                vc?.backdropPath = "imagenotfound"
+            } else {
+                vc?.backdropPath = movieResult[indexPath.row].backdropPath!
+            }
+            if movieResult[indexPath.row].posterPath?.count == nil {
+                vc?.poster_path = "Not Found!"
+            } else {
+                vc?.poster_path = movieResult[indexPath.row].posterPath!
+            }
+            if movieResult[indexPath.row].releaseDate?.count == nil {
+                vc?.release_date = "Not Found!"
+            } else {
+                vc?.release_date = movieResult[indexPath.row].releaseDate!
+            }
+            vc?.vote_average = movieResult[indexPath.row].voteAverage
+            self.navigationController?.pushViewController(vc!, animated: true)
+        }
     
+    }
+    
+    func fetch(url:URL) {
+        URLSession.shared.request(
+            url: url,
+            expecting: Movies.self
+        ) { [weak self] result in
+            switch(result) {
+            case .success(let users):
+                DispatchQueue.main.async {
+                    self!.movieResult = []
+                    self!.movieResult = users.results
+                    if self!.movieResult.count != 0 {
+                        self?.tableView.reloadData()
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     
     //SearchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count < 3 {
+            movieResult = []
+            self.tableView.reloadData()
+        } else if(searchText.count > 3) {
+            self.movieResult = []
+            self.tableView.reloadData()
+            if (searchText.count != 0) {
+                guard let theURL = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=a3956525871efa056dd08a0599938f8b&language=en-US&page=1&include_adult=true&query=\(searchText.replacingOccurrences(of: " ", with: "%20"))") else { print ("oops"); return }
+                fetch(url: theURL)
+            }
+        }
         
     }
     
@@ -78,6 +128,47 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     }
 
 
+}
+
+extension URLSession {
+    enum CustomError: Error {
+        case invalidUrl
+        case invalidData
+    }
+    
+    func request<T: Codable>(
+        url: URL?,
+        expecting: T.Type,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
+        guard let url = url else {
+            completion(.failure(CustomError.invalidUrl))
+            return
+        }
+        
+        let task = dataTask(with: url) { data, _, error in
+            print("Data \(data)")
+            guard let data = data else {
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.failure(CustomError.invalidData))
+                }
+                return
+            }
+            
+            do {
+                let moviesResponse = try JSONDecoder().decode(expecting, from: data)
+                print("moviesResponse \(moviesResponse)")
+                completion(.success(moviesResponse))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        
+        task.resume()
+        
+    }
 }
 
 //Keyboard Dismiss

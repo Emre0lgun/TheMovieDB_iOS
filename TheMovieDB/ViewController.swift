@@ -1,8 +1,10 @@
 
 import UIKit
-
+import SQLite3
 
 class ViewController: UIViewController {
+    
+    var db: OpaquePointer? = nil
     
     //Background and statusbar color
     func setGradientBackground() {

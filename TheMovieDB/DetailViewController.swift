@@ -1,5 +1,6 @@
 
 import UIKit
+import SQLite3
 
 class DetailViewController: UIViewController {
     
@@ -24,7 +25,14 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
         
-        imageView.image = UIImage(named: "imagenotfound")
+        if backdropPath == "imagenotfound" {
+            imageView.image = UIImage(named: "imagenotfound")
+        } else {
+            let url = URL(string: "https://image.tmdb.org/t/p/w400\(backdropPath)")!
+            if let data = try? Data(contentsOf: url) {
+                imageView.image = UIImage(data: data)
+            }
+        }
         idFavoritiesArray = []
         idWatchListArray = []
         //Save movie id data for Favorities
