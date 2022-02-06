@@ -87,7 +87,6 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    
     //SearchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count < 3 {

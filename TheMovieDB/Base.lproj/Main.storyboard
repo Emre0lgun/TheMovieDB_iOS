@@ -115,6 +115,10 @@
                             <constraint firstItem="Nyy-1r-35R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="yKo-i4-o4w"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="getEmail" destination="rEm-fz-3CR" id="uy4-qH-65t"/>
+                        <outlet property="getPassword" destination="Dl5-Lf-YCI" id="bbq-XB-M0s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
