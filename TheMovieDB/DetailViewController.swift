@@ -20,16 +20,22 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var favoritiesBtn: UIButton!
     let defaultsWatchlist = UserDefaults.standard
     let defaultsFavorities = UserDefaults.standard
+    @IBOutlet weak var voteAvarage: UILabel!
+    @IBOutlet weak var releasedate: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = self.view.bounds
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Movies.sqlite")
                 
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
             print("error opening database")
         }
+        
         if backdropPath == "imagenotfound" {
             imageView.image = UIImage(named: "imagenotfound")
         } else {
@@ -65,6 +71,8 @@ class DetailViewController: UIViewController {
         
         self.title = originalTitle
         textView.text = "\t\(overview)"
+        voteAvarage.text = String(vote_average)
+        releasedate.text = release_date
 
     }
     

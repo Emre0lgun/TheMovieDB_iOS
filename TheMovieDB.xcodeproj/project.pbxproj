@@ -22,6 +22,7 @@
 		195DC23F27A2D1CE0005E7B6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195DC23E27A2D1CE0005E7B6 /* DetailViewController.swift */; };
 		195DC24127A2E5C50005E7B6 /* WatchListTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195DC24027A2E5C50005E7B6 /* WatchListTableTableViewCell.swift */; };
 		199E33AC27A347A800CB3DFF /* FavoritiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199E33AB27A347A800CB3DFF /* FavoritiesTableViewCell.swift */; };
+		199E33AE27A42B8700CB3DFF /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199E33AD27A42B8700CB3DFF /* Movies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		195DC23E27A2D1CE0005E7B6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		195DC24027A2E5C50005E7B6 /* WatchListTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableTableViewCell.swift; sourceTree = "<group>"; };
 		199E33AB27A347A800CB3DFF /* FavoritiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritiesTableViewCell.swift; sourceTree = "<group>"; };
+		199E33AD27A42B8700CB3DFF /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			children = (
 				195DC20227A2A2490005E7B6 /* AppDelegate.swift */,
 				195DC20427A2A2490005E7B6 /* SceneDelegate.swift */,
+				199E33AD27A42B8700CB3DFF /* Movies.swift */,
 				195DC20627A2A2490005E7B6 /* ViewController.swift */,
 				195DC23C27A2C2850005E7B6 /* SearchTableViewController.swift */,
 				195DC23427A2B73B0005E7B6 /* WatchlistViewController.swift */,
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				199E33AE27A42B8700CB3DFF /* Movies.swift in Sources */,
 				195DC20727A2A2490005E7B6 /* ViewController.swift in Sources */,
 				195DC24127A2E5C50005E7B6 /* WatchListTableTableViewCell.swift in Sources */,
 				195DC23527A2B73B0005E7B6 /* WatchlistViewController.swift in Sources */,
@@ -469,6 +473,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -480,7 +485,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -497,6 +502,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -508,7 +514,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

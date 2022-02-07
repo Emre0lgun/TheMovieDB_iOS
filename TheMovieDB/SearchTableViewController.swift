@@ -34,7 +34,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
         
-        cell.textLabel?.text = movieResult[indexPath.row].originalTitle
+        cell.textLabel?.text = "\(movieResult[indexPath.row].originalTitle) - \(String(describing: movieResult[indexPath.row].releaseDate!.prefix(4)))"
         
         return cell
     }

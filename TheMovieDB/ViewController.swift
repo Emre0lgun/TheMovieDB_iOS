@@ -7,6 +7,7 @@ class ViewController: UIViewController {
     var db: OpaquePointer? = nil
     @IBOutlet weak var getEmail: UITextField!
     @IBOutlet weak var getPassword: UITextField!
+    @IBOutlet weak var pointoImg: UIImageView!
     
     //Background and statusbar color
     func setGradientBackground() {
