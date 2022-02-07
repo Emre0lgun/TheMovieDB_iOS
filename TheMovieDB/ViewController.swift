@@ -29,7 +29,6 @@ class ViewController: UIViewController {
         overrideUserInterfaceStyle = .light
         
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Movies.sqlite")
-        print(fileURL.path)
                
         if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
             print("error opening database")

@@ -120,7 +120,6 @@ class FavoritiesViewController: UIViewController, UITableViewDataSource, UITable
         }
         while(sqlite3_step(stmt) == SQLITE_ROW){
             id = String(cString: sqlite3_column_text(stmt, 0))
-            print(id)
             backdrop_path = String(cString: sqlite3_column_text(stmt, 1))
             original_title = String(cString: sqlite3_column_text(stmt, 2))
             overview = String(cString: sqlite3_column_text(stmt, 3))

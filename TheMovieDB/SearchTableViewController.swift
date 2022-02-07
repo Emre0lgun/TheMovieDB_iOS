@@ -96,7 +96,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             self.movieResult = []
             self.tableView.reloadData()
             if (searchText.count != 0) {
-                guard let theURL = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=a3956525871efa056dd08a0599938f8b&language=en-US&page=1&include_adult=true&query=\(searchText.replacingOccurrences(of: " ", with: "%20"))") else { print ("oops"); return }
+                guard let theURL = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=a3956525871efa056dd08a0599938f8b&language=en-US&page=1&include_adult=true&query=\(searchText.replacingOccurrences(of: " ", with: "%20"))") else { print ("Error"); return }
                 fetch(url: theURL)
             }
         }
@@ -146,7 +146,6 @@ extension URLSession {
         }
         
         let task = dataTask(with: url) { data, _, error in
-            print("Data \(data)")
             guard let data = data else {
                 if let error = error {
                     completion(.failure(error))
@@ -158,7 +157,6 @@ extension URLSession {
             
             do {
                 let moviesResponse = try JSONDecoder().decode(expecting, from: data)
-                print("moviesResponse \(moviesResponse)")
                 completion(.success(moviesResponse))
             } catch {
                 completion(.failure(error))
